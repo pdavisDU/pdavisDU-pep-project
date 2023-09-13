@@ -3,6 +3,10 @@ package Controller;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import Service.AccountService;
+import Service.MessageService;
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller. The endpoints you will need can be
  * found in readme.md as well as the test cases. You should
@@ -14,9 +18,19 @@ public class SocialMediaController {
      * suite must receive a Javalin object from this method.
      * @return a Javalin app object which defines the behavior of the Javalin controller.
      */
+
+     AccountService accountService;
+     MessageService messageService;
+
+     public SocialMediaController() {
+        accountService = new AccountService();
+        messageService = new MessageService();
+     }
     public Javalin startAPI() {
         Javalin app = Javalin.create();
-        app.get("example-endpoint", this::exampleHandler);
+
+        app.post("/register", this::registrationHandler);
+        // app.get("example-endpoint", this::exampleHandler);
         // app.post();
 
         return app;
@@ -26,8 +40,15 @@ public class SocialMediaController {
      * This is an example handler for an example endpoint.
      * @param context The Javalin Context object manages information about both the HTTP request and response.
      */
-    private void exampleHandler(Context context) {
-        context.json("sample text");
+    private void registrationHandler(Context context) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Author author = mapper.readValue(ctx.body(), Author.class);
+        Author addedAuthor = authorService.addAuthor(author);
+        if(addedAuthor!=null){
+            ctx.json(mapper.writeValueAsString(addedAuthor));
+        }else{
+            ctx.status(400);
+        }
     }
 
 
