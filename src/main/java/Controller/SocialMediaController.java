@@ -3,6 +3,8 @@ package Controller;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
+import java.util.List;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -37,6 +39,7 @@ public class SocialMediaController {
         // app.post();
         app.post("/login", this::loginHandler);
         app.post("/messages", this::createMessageHandler);
+        app.get("/messages", this::getMessagesHandler);
         return app;
     }
 
@@ -75,6 +78,11 @@ public class SocialMediaController {
         }else{
             context.status(400);
         }
+    }
+
+    private void getMessagesHandler(Context context) {
+        List<Message> messages = messageService.getMessages();
+        context.json(messages);
     }
 
 }
