@@ -53,5 +53,15 @@ public class SocialMediaController {
         }
     }
 
+    private void loginHandler(Context context) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Book book = mapper.readValue(ctx.body(), Book.class);
+        Book addedBook = bookService.addBook(book);
+        if(addedBook!=null){
+            ctx.json(mapper.writeValueAsString(addedBook));
+        }else{
+            ctx.status(400);
+        }
+    }
 
 }
