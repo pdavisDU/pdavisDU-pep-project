@@ -60,7 +60,7 @@ public class SocialMediaController {
         if(login !=null){
             context.json(login);
         }else{
-            context.status(400);
+            context.status(401);
         }
     }
 

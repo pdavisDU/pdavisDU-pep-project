@@ -57,7 +57,8 @@ public class AccountDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if(resultSet.next()) {
-                login = new Account (resultSet.getInt("generated_account_id"), resultSet.getString("username"), resultSet.getString("password"));
+                // int generated_account_id = resultSet.getInt("account_id");
+                login = new Account(resultSet.getInt("account_id"), resultSet.getString("username"), resultSet.getString("password"));
             }
         } catch (SQLException e){
             e.printStackTrace();
