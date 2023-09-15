@@ -22,7 +22,7 @@ public class MessageService {
     }
 
     // get message by ID
-    public Message getMessagesById(Int id) {
-        return messageDAO.getMessagesById();
+    public Message getMessagesById(int id) {
+        return messageDAO.getMessagesById(id);
     }
 }
