@@ -88,13 +88,15 @@ public class MessageDAO {
         return messageId;
     }
 
-    public Message getMessagesByUser(int account_id){
+    public List <Message> getMessagesByUser(int account_id){
         Connection connection = ConnectionUtil.getConnection();
         List<Message> messages = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM message";
+            String sql = "SELECT * FROM message WHERE posted_by = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, account_id);
             ResultSet resultSet = preparedStatement.executeQuery();
+
             while(resultSet.next()){
                 int message_id = resultSet.getInt("message_id");
                 int posted_by = resultSet.getInt("posted_by");
