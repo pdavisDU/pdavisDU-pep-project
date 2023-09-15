@@ -123,32 +123,23 @@ public class MessageDAO {
             e.printStackTrace();
         }
     }
-
-    public Message updateMessage(Message message){
+    // re-using createMessage boilerplate
+    public void updateMessage(Message message, int id){
         Connection connection = ConnectionUtil.getConnection();
-        Message newMessage = null;
         try {
             //Write SQL logic here
             // going to have to update where message id because theres no other way to select which message
-            String sql = "UPDATE message (posted_by, message_text, time_posted_epoch) VALUES (?, ?, ?)" ;
-            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            String sql = "UPDATE message SET message_text = ? WHERE message_id = ?" ;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             //write preparedStatement's setString and setInt methods here.
-            preparedStatement.setInt(1, message.getPosted_by());
-            preparedStatement.setString(2, message.getMessage_text()); 
-            preparedStatement.setLong(3, message.getTime_posted_epoch()); 
+            preparedStatement.setString(1, message.getMessage_text()); 
+            preparedStatement.setInt(2, id);
 
             preparedStatement.executeUpdate();
-            ResultSet pkeyResultSet = preparedStatement.getGeneratedKeys();
 
-            if (pkeyResultSet.next() && message.getMessage_text()!="" && message.getMessage_text().length()<255){
-                int message_id = pkeyResultSet.getInt("message_id");
-
-                newMessage = new Message(message_id, message.getPosted_by(), message.getMessage_text(), message.getTime_posted_epoch());
-            }
         }catch(SQLException e){
             e.printStackTrace();
         }
-        return newMessage;
     }
 }

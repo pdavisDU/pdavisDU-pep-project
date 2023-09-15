@@ -38,7 +38,10 @@ public class MessageService {
         } else return;
     }
 
-    public Message updateMessage(Message message) {
-        return messageDAO.updateMessage(message);
+    public Message updateMessage(Message message, int id) {
+        if(messageDAO.getMessagesById(id)!= null && message.getMessage_text()!= "" && message.getMessage_text().length()<255){
+            messageDAO.updateMessage(message, id);
+            return messageDAO.getMessagesById(id);
+        } else return null;
     }
 }
