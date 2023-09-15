@@ -129,7 +129,8 @@ public class MessageDAO {
         Message newMessage = null;
         try {
             //Write SQL logic here
-            String sql = "INSERT INTO message (posted_by, message_text, time_posted_epoch) VALUES (?, ?, ?)" ;
+            // going to have to update where message id because theres no other way to select which message
+            String sql = "UPDATE message (posted_by, message_text, time_posted_epoch) VALUES (?, ?, ?)" ;
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             //write preparedStatement's setString and setInt methods here.
