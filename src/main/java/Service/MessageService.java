@@ -31,8 +31,10 @@ public class MessageService {
         return messageDAO.getMessagesByUser(account_id);
     }
 
-    public Message deleteMessage(int id){
+    public void deleteMessage(int id){
         // add logic here for if message found or not found
-        
+        if(messageDAO.getMessagesById(id) != null) {
+            messageDAO.deleteMessage(id);
+        } else return;
     }
 }
