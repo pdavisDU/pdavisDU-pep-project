@@ -30,4 +30,9 @@ public class MessageService {
     public List<Message> getMessagesByUser(int account_id){
         return messageDAO.getMessagesByUser(account_id);
     }
+
+    public Message deleteMessage(int id){
+        // add logic here for if message found or not found
+        
+    }
 }
