@@ -64,4 +64,8 @@ public class MessageDAO {
         }
         return messages;
     }
+    // get messages by ID
+    public Message getMessagesById(Int id) {
+
+    }
 }

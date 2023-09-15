@@ -20,4 +20,9 @@ public class MessageService {
     public List<Message> getMessages() {
         return messageDAO.getMessages();
     }
+
+    // get message by ID
+    public Message getMessagesById(Int id) {
+        return messageDAO.getMessagesById();
+    }
 }
